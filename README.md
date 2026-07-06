@@ -1,6 +1,6 @@
 # Research Toolkit
 
-A Python toolkit for statistical analysis, visualization, and reporting.
+Research Toolkit is a lightweight Python package for statistical analysis, data visualization, regression, correlation analysis, and automated reporting. It is designed for researchers, medical physicists, clinicians, and students working with scientific data.
 
 Developed by **AJITH**
 
