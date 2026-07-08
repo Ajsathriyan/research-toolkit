@@ -17,7 +17,7 @@ from modules.validation import (
     validate_numeric,
 )
 
-
+CURRENT_FIGURE = None
 # ==========================================================
 # Histogram
 # ==========================================================
@@ -32,7 +32,7 @@ def histogram(df, column, bins=10):
 
     data = df[column].dropna()
 
-    plt.figure(figsize=(6,5))
+    fig = plt.figure(figsize=(6,5), dpi=300)
     plt.hist(data, bins=bins)
 
     plt.xlabel(column)
@@ -40,6 +40,8 @@ def histogram(df, column, bins=10):
     plt.title(f"Histogram: {column}")
 
     plt.tight_layout()
+    global CURRENT_FIGURE
+    CURRENT_FIGURE = fig
     plt.show()
 
 
@@ -57,13 +59,15 @@ def box_plot(df, column):
 
     data = df[column].dropna()
 
-    plt.figure(figsize=(4,6))
+    fig = plt.figure(figsize=(6,5), dpi=300)
     plt.boxplot(data)
 
     plt.ylabel(column)
     plt.title(f"Box Plot: {column}")
 
     plt.tight_layout()
+    global CURRENT_FIGURE
+    CURRENT_FIGURE = fig
     plt.show()
 
 
@@ -71,7 +75,14 @@ def box_plot(df, column):
 # Scatter Plot
 # ==========================================================
 
-def scatter_plot(df, x_column, y_column):
+def scatter_plot(
+    df,
+    x_column,
+    y_column,
+    color="blue",
+    marker="o",
+    size=50
+):
     """
     Draw scatter plot.
     """
@@ -84,11 +95,14 @@ def scatter_plot(df, x_column, y_column):
 
     data = df[[x_column, y_column]].dropna()
 
-    plt.figure(figsize=(6,5))
+    fig = plt.figure(figsize=(6,5), dpi=300)
 
     plt.scatter(
         data[x_column],
-        data[y_column]
+        data[y_column],
+        color=color,
+        marker=marker,
+        s=size
     )
 
     plt.xlabel(x_column)
@@ -96,9 +110,9 @@ def scatter_plot(df, x_column, y_column):
     plt.title("Scatter Plot")
 
     plt.tight_layout()
+    global CURRENT_FIGURE
+    CURRENT_FIGURE = fig
     plt.show()
-
-
 # ==========================================================
 # Regression Plot
 # ==========================================================
@@ -121,7 +135,7 @@ def regression_plot(df, x_column, y_column):
 
     result = linregress(x, y)
 
-    plt.figure(figsize=(6,5))
+    fig = plt.figure(figsize=(6,5), dpi=300)
 
     plt.scatter(x, y)
 
@@ -136,6 +150,8 @@ def regression_plot(df, x_column, y_column):
     plt.title("Linear Regression")
 
     plt.tight_layout()
+    global CURRENT_FIGURE
+    CURRENT_FIGURE = fig
     plt.show()
 
 
@@ -153,13 +169,15 @@ def qq_plot(df, column):
 
     data = df[column].dropna()
 
-    plt.figure(figsize=(6,5))
+    fig = plt.figure(figsize=(6,5), dpi=300)
 
     probplot(data, dist="norm", plot=plt)
 
     plt.title(f"Q-Q Plot: {column}")
 
     plt.tight_layout()
+    global CURRENT_FIGURE
+    CURRENT_FIGURE = fig
     plt.show()
 
 
@@ -192,7 +210,7 @@ def bland_altman_plot(df, column1, column2):
     upper = md + 1.96 * sd
     lower = md - 1.96 * sd
 
-    plt.figure(figsize=(6,5))
+    fig = plt.figure(figsize=(6,5), dpi=300)
 
     plt.scatter(mean, diff)
 
@@ -205,4 +223,6 @@ def bland_altman_plot(df, column1, column2):
     plt.title("Bland-Altman Plot")
 
     plt.tight_layout()
+    global CURRENT_FIGURE
+    CURRENT_FIGURE = fig
     plt.show()

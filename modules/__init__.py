@@ -55,14 +55,3 @@ from .validation import (
 from .constants import (
     IGNORE_COLUMNS,
 )
-
-from modules import *
-
-stats = descriptive_statistics(df)
-
-result = paired_t_test(df, "ASC_OFF", "ASC_HIGH")
-print_test_result(result)
-
-regression_plot(df, "MCSv", "GI")
-
-export_dataframe(stats, "Descriptive.xlsx")
